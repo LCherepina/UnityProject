@@ -9,15 +9,19 @@ public class HeroRabbit : MonoBehaviour {
     float value;
     Rigidbody2D myBody = null;
 
+    bool isBig = false;
     bool isGrounded = false;
     bool JumpActive = false;
     float JumpTime = 0f;
     public float MaxJumpTime = 2f;
     public float JumpSpeed = 2f;
 
+    Transform heroParent = null;
+
     public HeroRabbit rabit;
     // Use this for initialization
 	void Start () {
+        this.heroParent = this.transform.parent;
         value = Input.GetAxis("Horizontal");
         LevelController.current.setStartPosition(transform.position);
         myBody = this.GetComponent<Rigidbody2D>();
@@ -74,11 +78,22 @@ public class HeroRabbit : MonoBehaviour {
         RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
         if (hit)
         {
+            
+            if (hit.transform != null && hit.transform.GetComponent<MovingPlatform>() != null)
+            {
+                //Приліпаємо до платформи
+                SetNewParent(this.transform, hit.transform);
+            }
+            else
+            {
+                SetNewParent(this.transform, this.heroParent);
+            }
             isGrounded = true;
         }
         else
         {
             isGrounded = false;
+
         }
     //    Debug.DrawLine(from, to, Color.red);
       
@@ -107,6 +122,48 @@ public class HeroRabbit : MonoBehaviour {
         }
         //Animator animator = GetComponent<Animator>();
        
+    }
+    static void SetNewParent(Transform obj, Transform new_parent)
+    {
+        if (obj.transform.parent != new_parent)
+        {
+            //Засікаємо позицію у Глобальних координатах
+            Vector3 pos = obj.transform.position;
+            //Встановлюємо нового батька
+            obj.transform.parent = new_parent;
+            //Після зміни батька координати кролика зміняться
+            //Оскільки вони тепер відносно іншого об’єкта
+            //повертаємо кролика в ті самі глобальні координати
+            obj.transform.position = pos;
+        }
+    }
+    public void deathFromBomb()
+    {
+        LevelController.current.onRabitDeath(this);
+    }
+    public void enlarge()
+    {
+        if (!isBig)
+        {
+            this.transform.localScale *= 2;
+
+        }
+        isBig = true;
+    }
+    public void hitBomb()
+    {
+        if (isBig)
+        {
+            this.transform.localScale /= 2;
+            isBig = false;
+        }
+        else
+        {
+            Animator animator = GetComponent<Animator>();
+            animator.SetTrigger("die");
+            
+        }
+
     }
 
 
