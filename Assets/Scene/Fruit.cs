@@ -6,7 +6,8 @@ public class Fruit : Collectable
 {
     protected override void OnRabitHit(HeroRabbit rabbit)
     {
-        // LevelController.current.addCoins(1);
+         LevelController.current.addFruit();
         this.CollectedHide();
+
     }
 }

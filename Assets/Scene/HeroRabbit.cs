@@ -31,6 +31,11 @@ public class HeroRabbit : MonoBehaviour {
 	void Update () {
       	
     }
+    public static HeroRabbit lastRabit = null;
+    void Awake()
+    {
+        lastRabit = this;
+    }
     void FixedUpdate()
     {
         //[-1, 1]

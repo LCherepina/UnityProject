@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Crystal : Collectable
 {
+    public int color;
     protected override void OnRabitHit(HeroRabbit rabbit)
     {
-        // LevelController.current.addCoins(1);
+         LevelController.current.addCrystals(color);
         this.CollectedHide();
     }
 }
