@@ -82,7 +82,7 @@ public class LevelController : MonoBehaviour {
             musicBackgroundSource.loop = true;
 
            // if (MusicManager.Instance.isMusicOn())
-          //      musicBackgroundSource.Play();
+                musicBackgroundSource.Play();
 
             loseSource = gameObject.AddComponent<AudioSource>();
             loseSource.clip = loseSound;

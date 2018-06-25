@@ -22,6 +22,8 @@ public class DoorL1 : MonoBehaviour {
         //Впасти міг не тільки кролик
         if (rabit != null)
         {
+            //if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1"))
+
             SceneManager.LoadScene(doorLevel);
         }
     }

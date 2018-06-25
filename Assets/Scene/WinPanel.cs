@@ -5,23 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class WinPanel : MonoBehaviour {
 
-    public static bool GameIsEnded = false;
     public GameObject pauseMenuUI;
     public string retrylevel;
     public string menu;
 
-    void Update()
+    void Start()
     {
-        //pauseMenuUI.SetActive(true);
+
     }
+    void Update()
+    {   }
     public void Retry()
     {
-        pauseMenuUI.SetActive(false);
+
+        Time.timeScale = 1f;
         SceneManager.LoadScene(retrylevel);
     }
     public void NextLevel()
     {
-        pauseMenuUI.SetActive(false);
+    
+        Time.timeScale = 1f;
         SceneManager.LoadScene(menu);
     }
 }
