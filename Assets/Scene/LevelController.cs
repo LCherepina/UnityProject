@@ -12,6 +12,14 @@ public class LevelController : MonoBehaviour {
     int coinsAmount = 0;
     int lifes = 3;
 
+    public AudioClip musicBackground = null;
+    AudioSource musicBackgroundSource = null;
+
+    AudioSource loseSource = null;
+    public AudioClip loseSound = null;
+
+    public GameObject panelLost;
+
     public GameObject leftHeart;
     public GameObject centerHeart;
     public GameObject rightHeart;
@@ -39,10 +47,13 @@ public class LevelController : MonoBehaviour {
         
         lifes--;
         if (lifes == 2)
+        {
             rightHeart.SetActive(false);
-
-        if(lifes==1)
-           centerHeart.SetActive(false);
+        }
+        if (lifes == 1)
+        {
+            centerHeart.SetActive(false);
+        }
 
         if (lifes == 0)
         {
@@ -50,7 +61,9 @@ public class LevelController : MonoBehaviour {
             
             //losePop.SetActive(true);
             //rabit.gameObject.SetActive(false);
-            SceneManager.LoadScene("ChooseLevel");
+            panelLost.SetActive(true);
+            loseSource.Play();
+          //  SceneManager.LoadScene("ChooseLevel");
         }
             
         if(lifes != 0)
@@ -64,6 +77,16 @@ public class LevelController : MonoBehaviour {
         
         if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("ChooseLevel"))
         {
+            musicBackgroundSource = gameObject.AddComponent<AudioSource>();
+            musicBackgroundSource.clip = musicBackground;
+            musicBackgroundSource.loop = true;
+
+           // if (MusicManager.Instance.isMusicOn())
+          //      musicBackgroundSource.Play();
+
+            loseSource = gameObject.AddComponent<AudioSource>();
+            loseSource.clip = loseSound;
+
             fruitTotal = FindObjectsOfType<Fruit>().Length;
             fruitCount.text = "0" + "/" + fruitTotal;
 

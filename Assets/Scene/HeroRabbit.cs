@@ -9,6 +9,18 @@ public class HeroRabbit : MonoBehaviour {
     float value;
     Rigidbody2D myBody = null;
 
+    public AudioClip walkSound = null;
+    public AudioClip touchdownSound = null;
+    public AudioClip dieSound = null;
+    AudioSource walkSource = null;
+    AudioSource touchdownSource = null;
+    AudioSource dieSource = null;
+  
+  //  void onAttack()
+ //   {
+ //       attackSource.Play();
+  //  }
+
     bool isBig = false;
     bool isGrounded = false;
     bool JumpActive = false;
@@ -21,6 +33,13 @@ public class HeroRabbit : MonoBehaviour {
     public HeroRabbit rabit;
     // Use this for initialization
 	void Start () {
+        walkSource = gameObject.AddComponent<AudioSource>();
+        walkSource.clip = walkSound;
+        touchdownSource = gameObject.AddComponent<AudioSource>();
+        touchdownSource.clip = touchdownSound;
+        dieSource = gameObject.AddComponent<AudioSource>();
+        dieSource.clip = dieSound;
+
         this.heroParent = this.transform.parent;
         value = Input.GetAxis("Horizontal");
         LevelController.current.setStartPosition(transform.position);
@@ -49,19 +68,26 @@ public class HeroRabbit : MonoBehaviour {
         Animator animator = GetComponent<Animator>();
         if (Mathf.Abs(value) > 0)
         {
+
             animator.SetBool("run", true);
         }
         else
         {
+           // if (SoundManager.Instance.isSoundOn())
+                walkSource.Play();
+           // else
+               // walkSource.Pause();
             animator.SetBool("run", false);
         }
-
         if (this.isGrounded)
         {
+
             animator.SetBool("jump", false);
         }
         else
         {
+           // if (SoundManager.Instance.isSoundOn())
+                touchdownSource.Play();
             animator.SetBool("jump", true);
         }
 
@@ -144,6 +170,7 @@ public class HeroRabbit : MonoBehaviour {
     }
     public void deathFromBomb()
     {
+        dieSource.Play();
         LevelController.current.onRabitDeath(this);
     }
     public void enlarge()
