@@ -18,6 +18,9 @@ public class LevelController : MonoBehaviour {
     AudioSource loseSource = null;
     public AudioClip loseSound = null;
 
+    public GameObject musicOn;
+    public GameObject soundOn;
+
     public GameObject panelLost;
     public GameObject panelLostBacground;
 
@@ -35,7 +38,6 @@ public class LevelController : MonoBehaviour {
     void Awake()
     {
         current = this;
-//////// LevelController.current.getLifesCount();
     }
     Vector3 startingPosition;
     public void setStartPosition(Vector3 pos)
@@ -59,14 +61,11 @@ public class LevelController : MonoBehaviour {
         if (lifes == 0)
         {
             leftHeart.SetActive(false);
-            
-            //losePop.SetActive(true);
-            //rabit.gameObject.SetActive(false);
-            
             panelLost.SetActive(true);
             panelLostBacground.SetActive(true);
-            loseSource.Play();
-          //  SceneManager.LoadScene("ChooseLevel");
+            if (SoundManager.Instance.isSoundOn())
+                loseSource.Play();
+           
         }
             
         if(lifes != 0)
@@ -84,7 +83,7 @@ public class LevelController : MonoBehaviour {
             musicBackgroundSource.clip = musicBackground;
             musicBackgroundSource.loop = true;
 
-           // if (MusicManager.Instance.isMusicOn())
+            if(MusicManager.Instance.setMusicOn()) 
                 musicBackgroundSource.Play();
 
             loseSource = gameObject.AddComponent<AudioSource>();
@@ -102,6 +101,34 @@ public class LevelController : MonoBehaviour {
         coinsCount.text = "0000" ;
         
     }
+    public void MusicON()
+    {
+        MusicManager.Instance.setMusicOn(true);
+        musicOn.SetActive(true);
+        musicBackgroundSource.Play();
+    }
+
+    public void MusicOFF()
+    {
+        MusicManager.Instance.setMusicOn(false);
+        musicOn.SetActive(false);
+        musicBackgroundSource.Stop();
+    }
+
+    public void SoundON()
+    {
+        SoundManager.Instance.setSoundOn(true);
+        soundOn.SetActive(true);
+        
+    }
+
+    public void SoundOFF()
+    {
+        SoundManager.Instance.setSoundOn(false);
+        soundOn.SetActive(false);
+       
+    }
+
     public void addFruit()
     {
         fruitAmount += 1;

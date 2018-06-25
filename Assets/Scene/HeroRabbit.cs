@@ -73,10 +73,10 @@ public class HeroRabbit : MonoBehaviour {
         }
         else
         {
-           // if (SoundManager.Instance.isSoundOn())
+            if (SoundManager.Instance.isSoundOn())
                 walkSource.Play();
-           // else
-               // walkSource.Pause();
+            else
+                walkSource.Pause();
             animator.SetBool("run", false);
         }
         if (this.isGrounded)
@@ -86,7 +86,7 @@ public class HeroRabbit : MonoBehaviour {
         }
         else
         {
-           // if (SoundManager.Instance.isSoundOn())
+            if (SoundManager.Instance.isSoundOn())
                 touchdownSource.Play();
             animator.SetBool("jump", true);
         }
