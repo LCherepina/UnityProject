@@ -1,36 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinPanel : MonoBehaviour {
 
     public static bool GameIsEnded = false;
     public GameObject pauseMenuUI;
-    public GameObject pauseMenuUIBackground;
+    public string retrylevel;
+    public string menu;
 
-    // Update is called once per frame
     void Update()
     {
-     //   if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (GameIsEnded)
-                Resume();
-            else
-                Pause();
-        }
+        //pauseMenuUI.SetActive(true);
     }
     public void Retry()
     {
         pauseMenuUI.SetActive(false);
-        pauseMenuUIBackground.SetActive(false);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
+        SceneManager.LoadScene(retrylevel);
     }
     public void NextLevel()
     {
-        pauseMenuUI.SetActive(true);
-        pauseMenuUIBackground.SetActive(true);
-        Time.timeScale = 0f;
-        GameIsPaused = true;
+        pauseMenuUI.SetActive(false);
+        SceneManager.LoadScene(menu);
     }
 }
