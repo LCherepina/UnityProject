@@ -19,6 +19,7 @@ public class LevelController : MonoBehaviour {
     public AudioClip loseSound = null;
 
     public GameObject panelLost;
+    public GameObject panelLostBacground;
 
     public GameObject leftHeart;
     public GameObject centerHeart;
@@ -61,7 +62,9 @@ public class LevelController : MonoBehaviour {
             
             //losePop.SetActive(true);
             //rabit.gameObject.SetActive(false);
+            
             panelLost.SetActive(true);
+            panelLostBacground.SetActive(true);
             loseSource.Play();
           //  SceneManager.LoadScene("ChooseLevel");
         }

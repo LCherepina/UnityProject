@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class LeftDoor : MonoBehaviour
 {
     public GameObject winPanel;
+    public GameObject winPanelBackground;
     // Use this for initialization
     void Start()
     {
@@ -27,6 +28,7 @@ public class LeftDoor : MonoBehaviour
         {
             Time.timeScale = 0f;
             winPanel.SetActive(true);
+            winPanelBackground.SetActive(true);
            
         }
     }
